@@ -1,2 +1,2 @@
 #!/bin/bash
-grep '^DISTRIB_ID=' /etc/lsb-release | cut -d= -f2
+grep '^NAME=' /etc/os-release | cut -d= -f2 | tr -d '"' | cut -d' ' -f1

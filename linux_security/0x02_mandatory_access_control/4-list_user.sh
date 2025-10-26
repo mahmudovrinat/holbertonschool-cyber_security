@@ -1,2 +1,2 @@
-#!/usr/bin/env bash
-sudo semanage user -l
+#!/bin/bash
+sudo semanage login -l

@@ -1,0 +1,2 @@
+#!/bin/bash
+showmount -e "$1" 2>/dev/null | awk -v h="$1" 'BEGIN{p=0} NR==1{next} NF{ if(!p){printf "Export list for %s:\n", h; p=1} path=$1; clients=""; for(i=2;i<=NF;i++) clients=clients $i " "; gsub(/[\(\),]/,"",clients); split(clients,arr,/[\t ]+/); c=arr[1]; if(c=="" ) print path " (everyone)"; else if(c=="*"||c=="0.0.0.0/0"||c=="0.0.0.0"||c=="::/0") print path " (everyone)"; else print path " (" c ")"; }'

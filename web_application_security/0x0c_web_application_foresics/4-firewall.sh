@@ -1,1 +1,2 @@
+#!/bin/bash
 grep -i 'iptables' /var/log/auth.log

@@ -1,5 +1,6 @@
 #!/bin/bash
 
-LOGFILE="./auth.log"
+LOG="./auth.log"
 
-grep -Ei "rule" "$LOGFILE" | grep -Ei "add" | wc -l
+# Match *any* firewall-related additions
+grep -Ei "ufw|firewall|iptables|rule" "$LOG" | grep -Ei "add|added|insert|append|allow" | wc -l

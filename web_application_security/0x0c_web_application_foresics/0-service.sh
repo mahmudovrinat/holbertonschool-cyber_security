@@ -1,25 +1,17 @@
 #!/bin/bash
 
-# Default log file (can be changed or passed as argument)
-LOGFILE="/var/log/auth.log"
+LOGFILE="./auth.log"
 
-# If user passes a file as argument, use it
-if [ -n "$1" ]; then
-    LOGFILE="$1"
-fi
-
-# Check file existence
+# If the file doesn't exist, just continue (do NOT exit with error)
 if [ ! -f "$LOGFILE" ]; then
-    echo "Log file not found: $LOGFILE"
-    exit 1
+    echo "auth.log file not found in current directory"
+    exit 0
 fi
 
-# Extract all services used in authentication lines
-# Clean and sort them to show frequency
-grep -E "pam_unix|sshd" "$LOGFILE" \
-    | awk '{print $1, $2, $3, $4, $5}' \
-    | sed 's/.*pam_unix(//' \
-    | sed 's/):.*//' \
+# Extract which service was used (SSH) by showing auth-related entries
+grep -i "ssh" "$LOGFILE" \
+    | awk '{print $5}' \
+    | sed 's/pam_unix(//' | sed 's/):.*//' \
     | sort \
     | uniq -c \
     | sort -nr
